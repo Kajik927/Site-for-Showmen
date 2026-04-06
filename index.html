@@ -1347,7 +1347,7 @@
 
     // GOOGLE SHEETS — VIDEO REVIEWS
     const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSnPD9m_9NJJEededCgh-V_bA022y4cqbBG_aU5k4jYWouWeE-eCWVyObdxuFTZNarfv82AovC-p9mx/pub?output=csv';
-    const PROXY = 'https://api.allorigins.win/raw?url=';
+
 
     function getYouTubeId(url) {
       const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([^&\n?#]+)/);
@@ -1371,7 +1371,7 @@
       const videoGrid = document.getElementById('videoGrid');
       const sheetsReviews = document.getElementById('sheetsReviews');
       try {
-        let res = await fetch(PROXY + encodeURIComponent(SHEET_CSV));
+        let res = await fetch(SHEET_CSV);
         const csv = await res.text();
         const rows = parseCSV(csv).slice(1).filter(r => r[0]);
         console.log('RAW CSV:', csv.substring(0, 500));
