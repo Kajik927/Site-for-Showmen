@@ -472,10 +472,14 @@
     .service-card:hover { background: var(--dark2); }
     .service-card:hover::before { transform: scaleX(1); }
     .service-icon {
-      font-size: 2.2rem;
-      margin-bottom: 1.2rem;
+      width: 52px;
+      height: 52px;
+      margin-bottom: 1.4rem;
       display: block;
+      color: var(--gold);
+      transition: transform 0.3s;
     }
+    .service-card:hover .service-icon { transform: scale(1.1); }
     .service-num {
       position: absolute;
       top: 2rem; right: 2rem;
@@ -1026,42 +1030,83 @@
       <div class="services-grid">
         <div class="service-card reveal">
           <span class="service-num">01</span>
-          <span class="service-icon">💍</span>
+          <!-- Wedding rings -->
+          <svg class="service-icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="30" r="10"/>
+            <circle cx="34" cy="30" r="10"/>
+            <path d="M14 18 L18 10 L22 18" stroke-width="1.5"/>
+            <path d="M30 18 L34 10 L38 18" stroke-width="1.5"/>
+            <circle cx="18" cy="10" r="2" fill="currentColor" stroke="none"/>
+            <circle cx="34" cy="10" r="2" fill="currentColor" stroke="none"/>
+          </svg>
           <h3 class="service-name">Үйлену тойы</h3>
           <p class="service-desc">Сіздің ең маңызды күніңізді ерекше ету үшін толық программа: неке қию рәсімі, ойын-сауық, конкурстар және дәстүрлі қазақ жырлары.</p>
           <span class="service-arrow">Толығырақ →</span>
         </div>
         <div class="service-card reveal">
           <span class="service-num">02</span>
-          <span class="service-icon">🎂</span>
+          <!-- Birthday cake -->
+          <svg class="service-icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="26" width="36" height="18" rx="2"/>
+            <path d="M8 34 Q17 30 26 34 Q35 38 44 34"/>
+            <line x1="18" y1="26" x2="18" y2="20"/>
+            <line x1="26" y1="26" x2="26" y2="20"/>
+            <line x1="34" y1="26" x2="34" y2="20"/>
+            <path d="M18 20 Q16 17 18 15 Q20 17 18 20" fill="currentColor" stroke="none"/>
+            <path d="M26 20 Q24 17 26 15 Q28 17 26 20" fill="currentColor" stroke="none"/>
+            <path d="M34 20 Q32 17 34 15 Q36 17 34 20" fill="currentColor" stroke="none"/>
+          </svg>
           <h3 class="service-name">Туылған күн</h3>
           <p class="service-desc">Балалар мен ересектерге арналған туылған күн тойы. Интерактивті ойындар, сюрприздер, және унутылмас сәттер.</p>
           <span class="service-arrow">Толығырақ →</span>
         </div>
         <div class="service-card reveal">
           <span class="service-num">03</span>
-          <span class="service-icon">🏢</span>
+          <!-- Corporate briefcase -->
+          <svg class="service-icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="20" width="40" height="26" rx="3"/>
+            <path d="M18 20 V16 Q18 12 22 12 H30 Q34 12 34 16 V20"/>
+            <line x1="6" y1="32" x2="46" y2="32"/>
+            <line x1="26" y1="28" x2="26" y2="36"/>
+          </svg>
           <h3 class="service-name">Корпоратив</h3>
           <p class="service-desc">Компанияңыздың іс-шарасын жоғары деңгейде өткіземін. Командалық тренингтер, мерейтой кештері, жұмыс бастамалары.</p>
           <span class="service-arrow">Толығырақ →</span>
         </div>
         <div class="service-card reveal">
           <span class="service-num">04</span>
-          <span class="service-icon">🎓</span>
+          <!-- Graduation cap -->
+          <svg class="service-icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="26,10 48,22 26,34 4,22" />
+            <path d="M14 27 V38 Q20 44 26 44 Q32 44 38 38 V27"/>
+            <line x1="48" y1="22" x2="48" y2="34"/>
+            <circle cx="48" cy="35" r="2" fill="currentColor" stroke="none"/>
+          </svg>
           <h3 class="service-name">Мектеп тойы</h3>
           <p class="service-desc">Соңғы қоңырау, түлектер кеші және мектеп мерекелері. Жас буынға арнайы программа.</p>
           <span class="service-arrow">Толығырақ →</span>
         </div>
         <div class="service-card reveal">
           <span class="service-num">05</span>
-          <span class="service-icon">🎪</span>
+          <!-- Stage spotlight -->
+          <svg class="service-icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="26,6 30,18 42,18 33,25 36,38 26,31 16,38 19,25 10,18 22,18"/>
+            <line x1="26" y1="38" x2="26" y2="46"/>
+            <line x1="18" y1="46" x2="34" y2="46"/>
+          </svg>
           <h3 class="service-name">Ашық іс-шаралар</h3>
           <p class="service-desc">Фестивальдер, мемлекеттік мерекелер, концерттер, қоғамдық шаралар. Үлкен сахнада — үлкен шоу.</p>
           <span class="service-arrow">Толығырақ →</span>
         </div>
         <div class="service-card reveal">
           <span class="service-num">06</span>
-          <span class="service-icon">🎙️</span>
+          <!-- Microphone -->
+          <svg class="service-icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="18" y="6" width="16" height="24" rx="8"/>
+            <path d="M10 26 Q10 40 26 40 Q42 40 42 26"/>
+            <line x1="26" y1="40" x2="26" y2="46"/>
+            <line x1="18" y1="46" x2="34" y2="46"/>
+          </svg>
           <h3 class="service-name">Диктор қызметі</h3>
           <p class="service-desc">Кәсіби дауыс пен дикциямен сіздің шараңызға арнайы сөйлеу мәтіндері, хабарландыру және аудио жазба.</p>
           <span class="service-arrow">Толығырақ →</span>
