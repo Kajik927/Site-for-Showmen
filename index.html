@@ -799,73 +799,6 @@
     .kaz-ornament span { color: var(--gold); font-size: 1.2rem; }
     .kaz-ornament .line { width: 60px; height: 1px; background: var(--gold); }
 
-    /* VIDEO REVIEWS */
-    #video-reviews { background: var(--dark2); }
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-      min-height: 60px;
-    }
-    @media (max-width: 600px) {
-      .video-grid { grid-template-columns: 1fr; }
-    }
-    .video-card {
-      background: var(--dark);
-      border: 1px solid rgba(201,168,76,0.12);
-      overflow: hidden;
-      transition: border-color 0.3s;
-    }
-    .video-card:hover { border-color: rgba(201,168,76,0.4); }
-    .video-embed {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-    }
-    .video-embed iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: none;
-    }
-    .video-card-label {
-      padding: 0.9rem 1.2rem;
-      font-size: 0.78rem;
-      color: var(--gray);
-      letter-spacing: 0.05em;
-      border-top: 1px solid rgba(201,168,76,0.08);
-    }
-    .sheets-reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-    .sheets-review-card {
-      background: var(--dark);
-      padding: 2rem;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.4s;
-    }
-    .sheets-review-card:hover { border-color: var(--gold); }
-    .loading-state {
-      text-align: center;
-      color: var(--gray);
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 3rem;
-      grid-column: 1 / -1;
-    }
-    .vr-section-divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent);
-      margin: 3rem 0;
-    }
-
     /* SCROLL REVEAL */
     .reveal {
       opacity: 0;
@@ -955,8 +888,7 @@
       <li><a href="#services">Қызметтер</a></li>
       <li><a href="#gallery">Галерея</a></li>
       <li><a href="#testimonials">Пікірлер</a></li>
-      <li><a href="#video-reviews">Видео</a></li>
-      <li><a href="#contact" class="nav-cta">Тапсырыс беру</a></li>
+<li><a href="#contact" class="nav-cta">Тапсырыс беру</a></li>
     </ul>
     <button class="burger" onclick="openMobileMenu()">
       <span></span><span></span><span></span>
@@ -1210,20 +1142,6 @@
     </div>
   </section>
 
-  <!-- VIDEO REVIEWS -->
-  <section id="video-reviews">
-    <div class="container">
-      <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto 3.5rem;">
-        <p class="section-label" style="justify-content:center;">Видео пікірлер</p>
-        <h2 class="section-title">Клиенттер <em>не дейді?</em></h2>
-      </div>
-      <div class="video-grid" id="videoGrid">
-        <p class="loading-state">Жүктелуде...</p>
-      </div>
-      <div id="sheetsReviews"></div>
-    </div>
-  </section>
-
   <!-- CONTACT -->
   <section id="contact">
     <div class="contact-bg-text">Шынгыс</div>
@@ -1347,81 +1265,6 @@
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // GOOGLE SHEETS — VIDEO REVIEWS
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwI3mWs7kJstZObO2IMkVs8C1C2Z9-DBW9zg9gNBFhOWI1hNfWTNmyFsaCsMzTzYxGfxg/exec';
-
-    function getYouTubeId(url) {
-      const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([^&\n?#]+)/);
-      return m ? m[1] : null;
-    }
-
-    async function fetchWithRetry(url, attempts = 4) {
-      for (let i = 0; i < attempts; i++) {
-        try {
-          const controller = new AbortController();
-          const timer = setTimeout(() => controller.abort(), 7000);
-          const res = await fetch(url, { signal: controller.signal });
-          clearTimeout(timer);
-          if (res.ok) return res;
-        } catch(e) {
-          if (i === attempts - 1) throw e;
-          await new Promise(r => setTimeout(r, 1500 * (i + 1)));
-        }
-      }
-    }
-
-    async function loadSheetData() {
-      const videoGrid = document.getElementById('videoGrid');
-      const sheetsReviews = document.getElementById('sheetsReviews');
-      try {
-        const res = await fetchWithRetry(APPS_SCRIPT_URL);
-        const rows = await res.json();
-
-        const videos = rows.filter(r => String(r['тип']).toLowerCase() === 'video' && r['ссылка']);
-        const reviews = rows.filter(r => String(r['тип']).toLowerCase() === 'review' && r['текст']);
-
-        if (videos.length > 0) {
-          videoGrid.innerHTML = videos.map(r => {
-            const id = getYouTubeId(r['ссылка']);
-            if (!id) return '';
-            return `<div class="video-card">
-              <div class="video-embed">
-                <iframe src="https://www.youtube.com/embed/${id}?playsinline=1" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" loading="lazy"></iframe>
-              </div>
-              ${r['имя'] ? `<div class="video-card-label">${r['имя']}</div>` : ''}
-            </div>`;
-          }).join('');
-        } else {
-          videoGrid.innerHTML = '<p class="loading-state">Видео жоқ</p>';
-        }
-
-        if (reviews.length > 0) {
-          sheetsReviews.innerHTML = `
-            <div class="vr-section-divider"></div>
-            <div class="sheets-reviews-grid">
-              ${reviews.map(r => `
-                <div class="sheets-review-card reveal">
-                  <div class="stars">★★★★★</div>
-                  <div class="quote-mark">"</div>
-                  <p class="testimonial-text">${r['текст']}</p>
-                  <div class="testimonial-author">
-                    <div class="author-avatar">${r['имя'] ? String(r['имя'])[0].toUpperCase() : '?'}</div>
-                    <div>
-                      <div class="author-name">${r['имя'] || ''}</div>
-                      <div class="author-event">${r['дата'] || ''}</div>
-                    </div>
-                  </div>
-                </div>`).join('')}
-            </div>`;
-          document.querySelectorAll('#sheetsReviews .reveal').forEach(el => observer.observe(el));
-        }
-      } catch(e) {
-        console.error('Sheets error:', e);
-        videoGrid.innerHTML = `<p class="loading-state">Қате: ${e.message}</p>`;
-      }
-    }
-    loadSheetData();
 
     // FORM SUBMIT
     document.querySelector('.form-submit').addEventListener('click', function() {
