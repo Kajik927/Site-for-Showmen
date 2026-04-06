@@ -142,10 +142,31 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 60%, rgba(201,168,76,0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 20% 20%, rgba(201,168,76,0.05) 0%, transparent 60%),
-        var(--black);
+      background: var(--black);
+    }
+    .hero-video-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .hero-video-wrap iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 177.78vh; /* 16/9 * 100vh */
+      height: 100vh;
+      min-width: 100%;
+      min-height: 56.25vw; /* 9/16 * 100vw */
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      border: none;
+    }
+    .hero-video-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.62);
+      z-index: 1;
     }
     .hero-lines {
       position: absolute;
@@ -171,6 +192,7 @@
       width: 700px; height: 700px;
       opacity: 0.04;
       animation: spin-slow 60s linear infinite;
+      z-index: 2;
     }
     @keyframes spin-slow { to { transform: translate(-50%, -50%) rotate(360deg); } }
 
@@ -268,6 +290,7 @@
       gap: 0.6rem;
       opacity: 0;
       animation: fade-in 1s 1.5s forwards;
+      z-index: 2;
     }
     .hero-scroll span {
       font-size: 0.6rem;
@@ -898,6 +921,16 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"></div>
+    <div class="hero-video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/Bg9jmORiBbM?autoplay=1&mute=1&loop=1&playlist=Bg9jmORiBbM&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+        loading="lazy"
+        title="Шынгыс шоумен">
+      </iframe>
+    </div>
+    <div class="hero-video-overlay"></div>
     <div class="hero-lines"></div>
     <!-- Rotating Kazakh ornament ring -->
     <svg class="hero-ornament" viewBox="0 0 700 700" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1075,13 +1108,6 @@
             <span>Наурыз мейрамы · Астана</span>
           </div>
           <div class="gallery-overlay"><span>Наурыз 2024</span></div>
-        </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder" style="background: linear-gradient(135deg,#1a1a0f,#22200a);">
-            <img src="photos/gallery-5.jpg" alt="Мектеп тойы" class="gallery-photo" onerror="this.style.display='none'">
-            <span>Мектеп тойы</span>
-          </div>
-          <div class="gallery-overlay"><span>Соңғы қоңырау</span></div>
         </div>
       </div>
     </div>
