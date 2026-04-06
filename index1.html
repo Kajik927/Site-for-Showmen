@@ -547,6 +547,27 @@
       padding: 1.5rem;
     }
     .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    /* PHOTOS */
+    .about-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .gallery-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.6s;
+    }
+    .gallery-item:hover .gallery-photo { transform: scale(1.04); }
+
     .gallery-overlay span {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.1rem;
@@ -778,6 +799,70 @@
     .kaz-ornament span { color: var(--gold); font-size: 1.2rem; }
     .kaz-ornament .line { width: 60px; height: 1px; background: var(--gold); }
 
+    /* VIDEO REVIEWS */
+    #video-reviews { background: var(--dark2); }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      min-height: 60px;
+    }
+    .video-card {
+      background: var(--dark);
+      border: 1px solid rgba(201,168,76,0.12);
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .video-card:hover { border-color: rgba(201,168,76,0.4); }
+    .video-embed {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+    .video-embed iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .video-card-label {
+      padding: 0.9rem 1.2rem;
+      font-size: 0.78rem;
+      color: var(--gray);
+      letter-spacing: 0.05em;
+      border-top: 1px solid rgba(201,168,76,0.08);
+    }
+    .sheets-reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .sheets-review-card {
+      background: var(--dark);
+      padding: 2rem;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.4s;
+    }
+    .sheets-review-card:hover { border-color: var(--gold); }
+    .loading-state {
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 3rem;
+      grid-column: 1 / -1;
+    }
+    .vr-section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent);
+      margin: 3rem 0;
+    }
+
     /* SCROLL REVEAL */
     .reveal {
       opacity: 0;
@@ -867,6 +952,7 @@
       <li><a href="#services">Қызметтер</a></li>
       <li><a href="#gallery">Галерея</a></li>
       <li><a href="#testimonials">Пікірлер</a></li>
+      <li><a href="#video-reviews">Видео</a></li>
       <li><a href="#contact" class="nav-cta">Тапсырыс беру</a></li>
     </ul>
     <button class="burger" onclick="openMobileMenu()">
@@ -926,7 +1012,10 @@
     <div class="container">
       <div class="about-grid">
         <div class="about-image-wrap reveal">
-          <div class="about-image-placeholder">Ш</div>
+          <div class="about-image-placeholder">
+            <img src="photos/portrait.jpeg" alt="Шынгыс — Шоумен" class="about-photo" onerror="this.style.display='none'">
+            Ш
+          </div>
           <div class="about-image-border"></div>
           <div class="about-badge">
             <span class="num">500+</span>
@@ -1026,30 +1115,35 @@
       <div class="gallery-grid reveal">
         <div class="gallery-item">
           <div class="gallery-placeholder" style="background: linear-gradient(135deg,#1c1a10,#2a2510);">
+            <img src="photos/gallery 1.jpeg" alt="Үйлену тойы" class="gallery-photo" onerror="this.style.display='none'">
             <span>Үйлену тойы · 2024</span>
           </div>
           <div class="gallery-overlay"><span>Алматы Гранд Той</span></div>
         </div>
         <div class="gallery-item">
           <div class="gallery-placeholder" style="background: linear-gradient(135deg,#101a1c,#102025);">
+            <img src="photos/gallery-2.jpg" alt="Корпоратив" class="gallery-photo" onerror="this.style.display='none'">
             <span>Корпоратив</span>
           </div>
           <div class="gallery-overlay"><span>Kaspi Bank · 2024</span></div>
         </div>
         <div class="gallery-item">
           <div class="gallery-placeholder" style="background: linear-gradient(135deg,#1a1015,#250f1a);">
+            <img src="photos/gallery-3.jpg" alt="Туылған күн" class="gallery-photo" onerror="this.style.display='none'">
             <span>Туылған күн</span>
           </div>
           <div class="gallery-overlay"><span>VIP Кеш</span></div>
         </div>
         <div class="gallery-item">
           <div class="gallery-placeholder" style="background: linear-gradient(135deg,#0f1a10,#152212);">
+            <img src="photos/gallery-4.jpg" alt="Наурыз мейрамы" class="gallery-photo" onerror="this.style.display='none'">
             <span>Наурыз мейрамы · Астана</span>
           </div>
           <div class="gallery-overlay"><span>Наурыз 2024</span></div>
         </div>
         <div class="gallery-item">
           <div class="gallery-placeholder" style="background: linear-gradient(135deg,#1a1a0f,#22200a);">
+            <img src="photos/gallery-5.jpg" alt="Мектеп тойы" class="gallery-photo" onerror="this.style.display='none'">
             <span>Мектеп тойы</span>
           </div>
           <div class="gallery-overlay"><span>Соңғы қоңырау</span></div>
@@ -1110,6 +1204,20 @@
         <span>❖</span>
         <div class="line"></div>
       </div>
+    </div>
+  </section>
+
+  <!-- VIDEO REVIEWS -->
+  <section id="video-reviews">
+    <div class="container">
+      <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto 3.5rem;">
+        <p class="section-label" style="justify-content:center;">Видео пікірлер</p>
+        <h2 class="section-title">Клиенттер <em>не дейді?</em></h2>
+      </div>
+      <div class="video-grid" id="videoGrid">
+        <p class="loading-state">Жүктелуде...</p>
+      </div>
+      <div id="sheetsReviews"></div>
     </div>
   </section>
 
@@ -1236,6 +1344,83 @@
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // GOOGLE SHEETS — VIDEO REVIEWS
+    const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSnPD9m_9NJJEededCgh-V_bA022y4cqbBG_aU5k4jYWouWeE-eCWVyObdxuFTZNarfv82AovC-p9mx/pub?output=csv';
+    const PROXY = 'https://api.allorigins.win/raw?url=';
+
+    function getYouTubeId(url) {
+      const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([^&\n?#]+)/);
+      return m ? m[1] : null;
+    }
+
+    function parseCSV(text) {
+      return text.trim().split('\n').map(line => {
+        const cols = []; let cur = ''; let inQ = false;
+        for (const ch of line) {
+          if (ch === '"') { inQ = !inQ; }
+          else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+          else { cur += ch; }
+        }
+        cols.push(cur.trim());
+        return cols;
+      });
+    }
+
+    async function loadSheetData() {
+      const videoGrid = document.getElementById('videoGrid');
+      const sheetsReviews = document.getElementById('sheetsReviews');
+      try {
+        let res = await fetch(PROXY + encodeURIComponent(SHEET_CSV));
+        const csv = await res.text();
+        const rows = parseCSV(csv).slice(1).filter(r => r[0]);
+        console.log('RAW CSV:', csv.substring(0, 500));
+        console.log('ROWS:', JSON.stringify(rows));
+
+        const videos = rows.filter(r => r[0].toLowerCase() === 'video' && r[1]);
+        const reviews = rows.filter(r => r[0].toLowerCase() === 'review' && r[3]);
+
+        if (videos.length > 0) {
+          videoGrid.innerHTML = videos.map(r => {
+            const id = getYouTubeId(r[1]);
+            if (!id) return '';
+            return `<div class="video-card">
+              <div class="video-embed">
+                <iframe src="https://www.youtube.com/embed/${id}" allowfullscreen loading="lazy"></iframe>
+              </div>
+              ${r[2] ? `<div class="video-card-label">${r[2]}</div>` : ''}
+            </div>`;
+          }).join('');
+        } else {
+          videoGrid.innerHTML = '<p class="loading-state">Видео жоқ</p>';
+        }
+
+        if (reviews.length > 0) {
+          sheetsReviews.innerHTML = `
+            <div class="vr-section-divider"></div>
+            <div class="sheets-reviews-grid">
+              ${reviews.map(r => `
+                <div class="sheets-review-card reveal">
+                  <div class="stars">★★★★★</div>
+                  <div class="quote-mark">"</div>
+                  <p class="testimonial-text">${r[3]}</p>
+                  <div class="testimonial-author">
+                    <div class="author-avatar">${r[2] ? r[2][0].toUpperCase() : '?'}</div>
+                    <div>
+                      <div class="author-name">${r[2] || ''}</div>
+                      <div class="author-event">${r[4] || ''}</div>
+                    </div>
+                  </div>
+                </div>`).join('')}
+            </div>`;
+          document.querySelectorAll('#sheetsReviews .reveal').forEach(el => observer.observe(el));
+        }
+      } catch(e) {
+        console.error('Sheets error:', e);
+        videoGrid.innerHTML = `<p class="loading-state">Қате: ${e.message}</p>`;
+      }
+    }
+    loadSheetData();
 
     // FORM SUBMIT
     document.querySelector('.form-submit').addEventListener('click', function() {
