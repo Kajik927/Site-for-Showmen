@@ -1356,11 +1356,26 @@
       return m ? m[1] : null;
     }
 
+    async function fetchWithRetry(url, attempts = 4) {
+      for (let i = 0; i < attempts; i++) {
+        try {
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), 7000);
+          const res = await fetch(url, { signal: controller.signal });
+          clearTimeout(timer);
+          if (res.ok) return res;
+        } catch(e) {
+          if (i === attempts - 1) throw e;
+          await new Promise(r => setTimeout(r, 1500 * (i + 1)));
+        }
+      }
+    }
+
     async function loadSheetData() {
       const videoGrid = document.getElementById('videoGrid');
       const sheetsReviews = document.getElementById('sheetsReviews');
       try {
-        const res = await fetch(APPS_SCRIPT_URL);
+        const res = await fetchWithRetry(APPS_SCRIPT_URL);
         const rows = await res.json();
 
         const videos = rows.filter(r => String(r['тип']).toLowerCase() === 'video' && r['ссылка']);
